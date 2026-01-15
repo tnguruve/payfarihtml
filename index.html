@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PayFari for Business | Multi-Currency Accounts & Global Payments</title>
     <style>
         * {
@@ -61,10 +61,13 @@
             background: rgb(220, 110, 35);
         }
         
-        /* Hero Section */
+        /* Hero Section (Option B: fills screen + peeks into cards) */
         .hero {
-            padding: 60px 0;
+            min-height: calc(100vh - 81px); /* 81px ~ header height so hero fills the rest */
+            display: flex;
+            align-items: center;
             text-align: center;
+            padding: 60px 0;
         }
         
         h1 {
@@ -104,6 +107,12 @@
         .features {
             padding: 60px 0;
             background: #f9fafb;
+        }
+
+        /* Option B: pull the cards up so the first row peeks under hero */
+        .features.peek {
+            margin-top: -90px;
+            padding-top: 90px;
         }
         
         .features-intro {
@@ -251,7 +260,13 @@
             }
             
             .hero {
+                min-height: auto; /* better on mobile */
                 padding: 40px 0;
+            }
+
+            .features.peek {
+                margin-top: 0;   /* avoid overlap on mobile */
+                padding-top: 40px;
             }
             
             .features {
@@ -282,7 +297,8 @@
         </div>
     </section>
 
-    <section class="features">
+    <!-- Added class="peek" only (no copy changes) -->
+    <section class="features peek">
         <div class="container">
             <div class="features-intro">
                 <h2>Everything you need to manage international money</h2>
