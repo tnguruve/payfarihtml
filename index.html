@@ -26,7 +26,7 @@
         
         /* Header */
         header {
-            padding: 24px 0;
+            padding: 20px 0;
             border-bottom: 1px solid #e5e5e5;
             position: sticky;
             top: 0;
@@ -63,23 +63,23 @@
         
         /* Hero Section */
         .hero {
-            padding: 80px 0;
+            padding: 60px 0;
             text-align: center;
         }
         
         h1 {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 24px;
+            line-height: 1.2;
+            margin-bottom: 20px;
             color: #1a1a1a;
         }
         
         .subheadline {
             font-size: 20px;
             color: #525252;
-            margin-bottom: 40px;
-            max-width: 600px;
+            margin-bottom: 32px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -100,43 +100,34 @@
             background: rgb(220, 110, 35);
         }
         
-        /* Section Styles */
-        section {
-            padding: 80px 0;
+        /* Features Grid */
+        .features {
+            padding: 60px 0;
+            background: #f9fafb;
         }
         
-        .section-dark {
-            background: #f9fafb;
+        .features-intro {
+            text-align: center;
+            margin-bottom: 48px;
         }
         
         h2 {
             font-size: 36px;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: #1a1a1a;
         }
         
-        .section-intro {
+        .features-subtitle {
             font-size: 18px;
             color: #525252;
-            margin-bottom: 24px;
-            max-width: 800px;
         }
         
-        /* Problem Section */
-        .problem-closer {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-top: 24px;
-        }
-        
-        /* Features Grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
-            margin-top: 48px;
+            margin-top: 40px;
         }
         
         .feature-card {
@@ -171,109 +162,61 @@
             font-size: 14px;
         }
         
-        /* How It Works */
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-            margin-top: 48px;
-        }
-        
-        .step {
-            text-align: center;
-        }
-        
-        .step-number {
-            display: inline-block;
-            width: 48px;
-            height: 48px;
-            background: rgb(238, 125, 48);
-            color: white;
-            border-radius: 50%;
-            line-height: 48px;
-            font-weight: 700;
-            font-size: 20px;
-            margin-bottom: 16px;
-        }
-        
-        .step h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .step p {
-            color: #525252;
-            font-size: 15px;
-        }
-        
-        /* Who It's For */
-        .audience-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            max-width: 900px;
-            margin-top: 32px;
-        }
-        
-        .audience-item {
-            padding: 24px;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-        }
-        
-        .audience-item h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #1a1a1a;
-        }
-        
-        .audience-item p {
-            color: #525252;
-            font-size: 15px;
-        }
-        
         /* Final CTA */
         .final-cta {
             text-align: center;
-            padding: 100px 0;
+            padding: 80px 0;
             background: linear-gradient(135deg, rgb(238, 125, 48) 0%, rgb(220, 110, 35) 100%);
             color: white;
         }
         
         .final-cta h2 {
             color: white;
-            font-size: 42px;
+            font-size: 36px;
             margin-bottom: 16px;
         }
         
         .final-cta p {
-            font-size: 20px;
-            margin-bottom: 40px;
+            font-size: 18px;
+            margin-bottom: 32px;
             opacity: 0.95;
         }
         
-        .cta-secondary {
-            display: inline-block;
+        /* ConvertKit Form Styles */
+        .formkit-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .formkit-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .formkit-input {
+            background: white;
+            font-size: 15px;
+            padding: 14px;
+            border: 1px solid #e3e3e3;
+            border-radius: 6px;
+            width: 100%;
+        }
+        
+        .formkit-submit {
             background: white;
             color: rgb(238, 125, 48);
-            padding: 16px 40px;
-            border-radius: 8px;
-            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            border: none;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 16px;
+            cursor: pointer;
             transition: transform 0.2s;
         }
         
-        .cta-secondary:hover {
+        .formkit-submit:hover {
             transform: translateY(-2px);
-        }
-        
-        .no-spam {
-            margin-top: 16px;
-            font-size: 14px;
-            opacity: 0.9;
         }
         
         /* Footer */
@@ -292,7 +235,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             h1 {
-                font-size: 36px;
+                font-size: 32px;
             }
             
             .subheadline {
@@ -303,21 +246,20 @@
                 font-size: 28px;
             }
             
-            .features-grid,
-            .audience-list {
+            .features-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .steps {
-                grid-template-columns: 1fr;
-            }
-            
-            section {
-                padding: 48px 0;
             }
             
             .hero {
-                padding: 48px 0;
+                padding: 40px 0;
+            }
+            
+            .features {
+                padding: 40px 0;
+            }
+            
+            .final-cta {
+                padding: 60px 0;
             }
         }
     </style>
@@ -327,7 +269,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">PayFari</div>
-                <a href="https://payfari.kit.com/c7cd56d887" class="cta-header">Join waitlist</a>
+                <a href="#waitlist" class="cta-header">Join waitlist</a>
             </div>
         </div>
     </header>
@@ -336,118 +278,52 @@
         <div class="container">
             <h1>Multi-currency accounts, crypto wallets, and global payments in one platform</h1>
             <p class="subheadline">Hold USD, EUR, and local currencies. Send payments via bank transfer, stablecoins, or mobile money. Fund with cards, bank transfers, or crypto.</p>
-            <a href="https://payfari.kit.com/c7cd56d887" class="cta-primary">Join the waitlist</a>
+            <a href="#waitlist" class="cta-primary">Join the waitlist</a>
         </div>
     </section>
 
-    <section>
+    <section class="features">
         <div class="container">
-            <h2>Managing international business finances shouldn't require five different platforms</h2>
-            <p class="section-intro">You need one account for USD, another for EUR, a crypto exchange for stablecoins, a separate platform for mobile money transfers, and your traditional bank for wire transfers.</p>
-            <p class="section-intro">Each platform has different fees you can't predict. Converting between them costs more. Reconciling everything at month-end takes hours.</p>
-            <p class="problem-closer">Every payment takes longer and costs more than it should.</p>
-        </div>
-    </section>
-
-    <section class="section-dark">
-        <div class="container">
-            <h2>One platform. Multiple payment options.</h2>
-            <p class="section-intro">Pay via stablecoins when it's faster. Use traditional banking when it makes sense. Send local transfers when your supplier prefers it. You choose the best route.</p>
+            <div class="features-intro">
+                <h2>Everything you need to manage international money</h2>
+                <p class="features-subtitle">Multi-currency accounts, crypto wallets, and flexible payment options—all transparent, all regulated.</p>
+            </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">💳</div>
                     <h3>Multi-currency accounts</h3>
-                    <p>Hold USD, EUR, GBP, MXN, and BRL with local routing numbers. No conversion fees when you're already holding the right currency.</p>
+                    <p>Hold USD, EUR, GBP, MXN, and BRL with local routing numbers. Switch between currencies instantly.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔷</div>
+                    <h3>Crypto wallets</h3>
+                    <p>USDC wallets built in. Hold stablecoins, send crypto payments, or convert to fiat when you need it.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Flexible funding</h3>
+                    <p>Top up your accounts via debit/credit card, bank transfer, or crypto. Choose what works best.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">⚡</div>
-                    <h3>Crypto payments</h3>
+                    <h3>Stablecoin payments</h3>
                     <p>Send USDC or USDT when you need same-day settlement. Lower fees, faster arrival.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">🌍</div>
-                    <h3>Local transfers</h3>
-                    <p>Pay suppliers via bank transfer or mobile money in their local currency and payment method.</p>
+                    <h3>Local & mobile money</h3>
+                    <p>Pay suppliers via bank transfer or mobile money in their local currency and preferred payment method.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
                     <h3>Transparent pricing</h3>
-                    <p>See fees, FX rates, and settlement times before you send. No hidden costs.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Licensed partners</h3>
-                    <p>Your funds move through regulated banks and payment partners. PayFari never holds your money.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📅</div>
-                    <h3>Payment automation</h3>
-                    <p>Schedule recurring payments. Set up beneficiary groups. Automate contractor payouts.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <h2>Here's how it works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Open accounts</h3>
-                    <p>Get multi-currency accounts with routing numbers in minutes</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Fund & convert</h3>
-                    <p>Top up via bank transfer, card, or crypto. Convert at transparent rates</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Pay globally</h3>
-                    <p>Send to suppliers, contractors, or vendors worldwide</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Track & reconcile</h3>
-                    <p>Export statements and transaction history for your books</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-dark">
-        <div class="container">
-            <h2>Built for businesses moving money globally</h2>
-            
-            <div class="audience-list">
-                <div class="audience-item">
-                    <h3>Import businesses</h3>
-                    <p>Pay overseas suppliers, manage inventory payments, and handle freight costs with transparent pricing</p>
-                </div>
-                
-                <div class="audience-item">
-                    <h3>Digital agencies</h3>
-                    <p>Pay contractors in multiple countries, manage ad spend, and handle international subscriptions</p>
-                </div>
-                
-                <div class="audience-item">
-                    <h3>Remote-first startups</h3>
-                    <p>Payroll for distributed teams, contractor payments, and expense management in one place</p>
-                </div>
-                
-                <div class="audience-item">
-                    <h3>E-commerce operators</h3>
-                    <p>Hold inventory payments in the right currency, pay suppliers globally, reduce conversion losses</p>
+                    <p>See fees, FX rates, and settlement times before you send. No hidden costs or surprise deductions.</p>
                 </div>
             </div>
         </div>
@@ -455,13 +331,28 @@
 
     <section class="final-cta" id="waitlist">
         <div class="container">
-            <h2>We're launching soon</h2>
-            <p>PayFari for Business is in development. Join the waitlist and we'll reach out when we're ready.</p>
-            <script async data-uid="c7cd56d887" src="https://payfari.kit.com/c7cd56d887/index.js"></script>
+            <h2>Join the waitlist</h2>
+            <p>PayFari for Business is launching soon. Get early access when we're ready.</p>
+            
+            <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+            <form action="https://app.kit.com/forms/8974776/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="8974776" data-uid="c7cd56d887" data-format="inline" data-version="5">
+                <div data-style="clean">
+                    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+                    <div data-element="fields" class="formkit-fields">
+                        <div class="formkit-field">
+                            <input class="formkit-input" aria-label="First and Last Name" name="fields[first_name]" placeholder="First and Last Name" type="text">
+                        </div>
+                        <div class="formkit-field">
+                            <input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="Email Address" required="" type="email">
+                        </div>
+                        <button data-element="submit" class="formkit-submit">
+                            <span>Join Waitlist</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </section>
-    
-    <!-- <script async data-uid="c7cd56d887" src="https://payfari.kit.com/c7cd56d887/index.js"></script> -->
 
     <footer>
         <div class="container">
