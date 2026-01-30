@@ -70,3 +70,158 @@ body {
   background-size: 24px 24px;
   background-color: var(--background);
 }
+
+/* Waitlist form – PayFari design system */
+.waitlist-form[data-uid="c7cd56d887"] * {
+  box-sizing: border-box;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-field {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .waitlist-form[data-uid="c7cd56d887"] .formkit-field:first-child {
+    min-width: 10rem;
+  }
+  .waitlist-form[data-uid="c7cd56d887"] .formkit-field:nth-child(2) {
+    flex: 1 1 14rem;
+  }
+  .waitlist-form[data-uid="c7cd56d887"] .formkit-submit {
+    flex: 0 0 auto;
+    width: auto;
+  }
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-input {
+  width: 100%;
+  background: var(--input-bg);
+  color: var(--foreground);
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  line-height: 1.5;
+  margin: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-input::placeholder {
+  color: var(--placeholder);
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-input:hover {
+  border-color: var(--grey-500);
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-submit {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  width: 100%;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-submit:hover {
+  background: var(--primary-hover);
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-submit:active {
+  transform: scale(0.98);
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-submit > span {
+  display: block;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-alert {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  text-align: center;
+  width: 100%;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-alert:empty {
+  display: none;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-alert-success {
+  background: color-mix(in srgb, var(--secondary) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--secondary) 40%, transparent);
+  color: #0c905c;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-alert-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-spinner > div {
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  background: currentColor;
+  border-radius: 100%;
+  animation: formkit-bounce 1.4s ease-in-out infinite both;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-spinner > div:nth-child(1) { animation-delay: -0.32s; }
+.waitlist-form[data-uid="c7cd56d887"] .formkit-spinner > div:nth-child(2) { animation-delay: -0.16s; }
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-submit[data-active] .formkit-spinner {
+  height: 100%;
+  width: 100%;
+}
+
+.waitlist-form[data-uid="c7cd56d887"] .formkit-submit[data-active] .formkit-spinner ~ span {
+  opacity: 0;
+}
+
+@keyframes formkit-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}

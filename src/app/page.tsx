@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Script from "next/script";
 import { useState } from "react";
 
 /* Placeholder icons for service cards - replace with real assets when available */
@@ -80,33 +81,6 @@ function scrollToWaitlist(e: React.MouseEvent) {
 }
 
 export default function Home() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name.trim() || !email.trim()) return;
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setStatus("error");
-        return;
-      }
-      setStatus("success");
-      setName("");
-      setEmail("");
-    } catch {
-      setStatus("error");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-grid-pattern text-[var(--foreground)]">
       {/* Header */}
@@ -138,51 +112,75 @@ export default function Home() {
             Open USD, EUR, or USDC accounts, spend with an international prepaid debit card, and get paid online using PayFari&apos;s billing tools.
           </p>
 
-          {/* Waitlist form - scroll-margin in globals.css for smooth anchor scroll */}
+          {/* Waitlist form – styled to match PayFari */}
           <div id="waitlist" className="mt-10 max-w-2xl scroll-mt-[5.5rem]">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:gap-3">
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Full name"
-                required
-                disabled={status === "loading"}
-                className="min-h-[48px] flex-1 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--input-bg)] px-4 text-[var(--foreground)] placeholder:text-[var(--placeholder)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 disabled:opacity-50 text-base"
-              />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email address"
-                required
-                disabled={status === "loading"}
-                className="min-h-[48px] flex-1 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--input-bg)] px-4 text-[var(--foreground)] placeholder:text-[var(--placeholder)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 disabled:opacity-50 text-base"
-              />
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="min-h-[48px] min-w-[44px] shrink-0 rounded-[var(--radius)] bg-[var(--primary)] px-6 font-semibold text-[var(--primary-foreground)] transition-colors hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 disabled:opacity-50"
+            <Script src="https://f.convertkit.com/ckjs/ck.5.js" strategy="afterInteractive" />
+            <div className="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--background-card)] shadow-sm">
+              <form
+                action="https://app.kit.com/forms/8974776/subscriptions"
+                className="seva-form formkit-form waitlist-form"
+                method="post"
+                data-sv-form="8974776"
+                data-uid="c7cd56d887"
+                data-format="inline"
+                data-version="5"
+                data-options={JSON.stringify({
+                  settings: {
+                    after_subscribe: { action: "message", success_message: "Success! Now check your email to confirm your subscription.", redirect_url: "" },
+                    analytics: { google: null, fathom: null, facebook: null, segment: null, pinterest: null, sparkloop: null, googletagmanager: null },
+                    modal: { trigger: "timer", scroll_percentage: null, timer: 5, devices: "all", show_once_every: 15 },
+                    powered_by: { show: true, url: "https://kit.com/features/forms?utm_campaign=poweredby&utm_content=form&utm_medium=referral&utm_source=dynamic" },
+                    recaptcha: { enabled: false },
+                    return_visitor: { action: "show", custom_content: "" },
+                    slide_in: { display_in: "bottom_right", trigger: "timer", scroll_percentage: null, timer: 5, devices: "all", show_once_every: 15 },
+                    sticky_bar: { display_in: "top", trigger: "timer", scroll_percentage: null, timer: 5, devices: "all", show_once_every: 15 },
+                  },
+                  version: "5",
+                })}
+                {...{ "data-min-width": "400 500 600 700 800" }}
               >
-                {status === "loading" ? "Joining…" : "Join the waitlist"}
-              </button>
-            </form>
-            {status === "success" && (
-              <p className="mt-3 text-sm font-medium text-[var(--primary)]">
-                You&apos;re on the list. We&apos;ll be in touch.
-              </p>
-            )}
-            {status === "error" && (
-              <p className="mt-3 text-sm text-red-600">
-                Something went wrong. Please try again.
-              </p>
-            )}
+                <div data-style="clean" className="p-6 sm:p-8">
+                  <ul className="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" />
+                  <div data-element="fields" data-stacked="false" className="seva-fields formkit-fields">
+                    <div className="formkit-field">
+                      <input
+                        className="formkit-input"
+                        aria-label="First and Last Name"
+                        name="fields[first_name]"
+                        placeholder="First and Last Name"
+                        type="text"
+                      />
+                    </div>
+                    <div className="formkit-field">
+                      <input
+                        className="formkit-input"
+                        name="email_address"
+                        aria-label="Email Address"
+                        placeholder="Email address"
+                        required
+                        type="email"
+                      />
+                    </div>
+                    <button data-element="submit" className="formkit-submit" type="submit">
+                      <div className="formkit-spinner">
+                        <div />
+                        <div />
+                        <div />
+                      </div>
+                      <span>Join Waitlist</span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
+        {/* Gradient fade - grid becomes more solid toward services section */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[var(--background)]" />
       </section>
 
       {/* Services */}
-      <section className="border-t border-[var(--border)] bg-[var(--grey-100)]/50 px-4 py-16 sm:px-6 lg:px-8">
+      <section className="relative border-t border-[var(--border)] bg-[var(--grey-100)] px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <h2 className="text-2xl font-bold tracking-tight text-[var(--foreground)] sm:text-3xl md:text-4xl">
             Everything you need to get paid and spend globally

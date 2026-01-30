@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const WAITLIST_FORM_URL = process.env.WAITLIST_FORM_URL;
+const KIT_API_KEY = process.env.WAITLIST_KIT_API_KEY;
+const KIT_FORM_ID = process.env.WAITLIST_KIT_FORM_ID || "8974776";
 
 export async function POST(request: NextRequest) {
-  if (!WAITLIST_FORM_URL) {
+  if (!KIT_API_KEY) {
     return NextResponse.json(
-      { error: "Waitlist form URL not configured. Add WAITLIST_FORM_URL to .env.local" },
+      { error: "Waitlist not configured. Add WAITLIST_KIT_API_KEY in Vercel Environment Variables." },
       { status: 500 }
     );
   }
@@ -21,31 +22,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Kit (ConvertKit) expects email_address and fields[first_name]
-    const formData = new URLSearchParams();
-    formData.append("email_address", email.trim());
-    if (name && typeof name === "string" && name.trim()) {
-      formData.append("fields[first_name]", name.trim());
-    }
-
-    const res = await fetch(WAITLIST_FORM_URL, {
+    // Kit API v4: add subscriber to form by email – this actually creates the subscriber
+    const res = await fetch(`https://api.kit.com/v4/forms/${KIT_FORM_ID}/subscribers`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
+        "X-Kit-Api-Key": KIT_API_KEY,
       },
-      body: formData.toString(),
+      body: JSON.stringify({
+        email_address: email.trim(),
+        first_name: name && typeof name === "string" && name.trim() ? name.trim() : undefined,
+      }),
     });
 
-    if (!res.ok) {
-      const text = await res.text();
-      console.error("Waitlist provider error:", res.status, text);
-      return NextResponse.json(
-        { error: "Could not add you to the waitlist. Please try again." },
-        { status: 502 }
-      );
+    const data = await res.json().catch(() => ({}));
+
+    // 200 = already on form, 201 = newly added
+    if (res.ok && (res.status === 200 || res.status === 201)) {
+      return NextResponse.json({ success: true });
     }
 
-    return NextResponse.json({ success: true });
+    console.error("Kit API error:", res.status, data);
+    return NextResponse.json(
+      { error: "Could not add you to the waitlist. Please try again." },
+      { status: 502 }
+    );
   } catch (err) {
     console.error("Waitlist submit error:", err);
     return NextResponse.json(
