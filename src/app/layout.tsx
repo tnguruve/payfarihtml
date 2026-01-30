@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,6 +16,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         {children}
+        <Script
+          src="https://payfari.kit.com/c7cd56d887/index.js"
+          data-uid="c7cd56d887"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
