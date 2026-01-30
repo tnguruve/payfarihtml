@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Figma design variables from PayFari file - exact tokens */
+:root {
+  /* Brand */
+  --primary: #f97616;
+  --primary-hover: #e56b0f;
+  --primary-foreground: #FFFFFF;
+  --secondary: #198754;
+
+  /* Surfaces - design uses off-white/light beige with grid, not pure white */
+  --background: #FAF9F7;
+  --background-card: #FFFFFF;
+  --foreground: #1A1C21;
+  --foreground-alt: #0A112F;
+
+  /* Grays from Figma */
+  --gray-100: #D7DAE0;
+  --gray-600: #5E6470;
+  --gray-900: #1A1C21;
+  --grey-100: #F4F4F5;
+  --grey-500: #70707A;
+  --border: #D7DAE0;
+  --input-bg: #FFFFFF;
+  --placeholder: #70707A;
+
+  /* Layout */
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+  --radius-lg: 1rem;
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-mono: ui-monospace, monospace;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Subtle grid pattern like Figma design */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-color: var(--background);
+}
