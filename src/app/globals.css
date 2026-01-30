@@ -37,10 +37,29 @@
   --color-foreground: var(--foreground);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Prevent jumpy scroll: leave space for sticky header when scrolling to #waitlist */
+#waitlist {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Smoother taps on mobile, less double-zoom / jumpy UI */
+@media (pointer: coarse) {
+  a, button, input {
+    touch-action: manipulation;
+  }
+}
+.touch-manipulation {
+  touch-action: manipulation;
 }
 
 /* Subtle grid pattern like Figma design */

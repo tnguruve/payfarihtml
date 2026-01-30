@@ -74,6 +74,11 @@ const SERVICES: Array<{ title: string; description: string; icon: keyof typeof S
   { title: "Local payments", description: "Send and receive payments via local banks and mobile money.", icon: "mobile", image: "/services/images/Local%20payments.png" },
 ];
 
+function scrollToWaitlist(e: React.MouseEvent) {
+  e.preventDefault();
+  document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -107,11 +112,18 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-10 border-b border-[var(--border)] bg-[var(--background)]/95 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <a href="/" className="text-xl font-semibold tracking-tight text-[var(--primary)]">
-            PayFari
+          <a href="/" className="flex shrink-0 items-center">
+            <Image
+              src="/services/images/Logo.png"
+              alt="PayFari"
+              width={120}
+              height={32}
+              className="h-8 w-auto object-contain"
+              priority
+            />
           </a>
           <span className="rounded-full bg-[var(--primary)] px-4 py-1.5 text-sm font-medium text-[var(--primary-foreground)]">
-            Launching in June 2026
+            Launching in April 2026
           </span>
         </div>
       </header>
@@ -126,8 +138,8 @@ export default function Home() {
             Open USD, EUR, or USDC accounts, spend with an international prepaid debit card, and get paid online using PayFari&apos;s billing tools.
           </p>
 
-          {/* Waitlist form */}
-          <div id="waitlist" className="mt-10 max-w-2xl">
+          {/* Waitlist form - scroll-margin in globals.css for smooth anchor scroll */}
+          <div id="waitlist" className="mt-10 max-w-2xl scroll-mt-[5.5rem]">
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:gap-3">
               <input
                 type="text"
@@ -136,7 +148,7 @@ export default function Home() {
                 placeholder="Full name"
                 required
                 disabled={status === "loading"}
-                className="h-12 flex-1 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--input-bg)] px-4 text-[var(--foreground)] placeholder:text-[var(--placeholder)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 disabled:opacity-50"
+                className="min-h-[48px] flex-1 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--input-bg)] px-4 text-[var(--foreground)] placeholder:text-[var(--placeholder)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 disabled:opacity-50 text-base"
               />
               <input
                 type="email"
@@ -145,12 +157,12 @@ export default function Home() {
                 placeholder="Email address"
                 required
                 disabled={status === "loading"}
-                className="h-12 flex-1 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--input-bg)] px-4 text-[var(--foreground)] placeholder:text-[var(--placeholder)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 disabled:opacity-50"
+                className="min-h-[48px] flex-1 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--input-bg)] px-4 text-[var(--foreground)] placeholder:text-[var(--placeholder)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 disabled:opacity-50 text-base"
               />
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="h-12 shrink-0 rounded-[var(--radius)] bg-[var(--primary)] px-6 font-semibold text-[var(--primary-foreground)] transition-colors hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 disabled:opacity-50"
+                className="min-h-[48px] min-w-[44px] shrink-0 rounded-[var(--radius)] bg-[var(--primary)] px-6 font-semibold text-[var(--primary-foreground)] transition-colors hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 disabled:opacity-50"
               >
                 {status === "loading" ? "Joining…" : "Join the waitlist"}
               </button>
@@ -204,7 +216,9 @@ export default function Home() {
           </h2>
           <a
             href="#waitlist"
-            className="mt-8 inline-block rounded-[var(--radius)] border-2 border-[var(--primary)] bg-white px-8 py-3 font-semibold text-[var(--primary)] shadow-sm transition-opacity hover:opacity-90"
+            onClick={scrollToWaitlist}
+            className="mt-8 inline-block min-h-[48px] min-w-[44px] rounded-[var(--radius)] border-2 border-white bg-white px-8 py-3 font-semibold text-[var(--primary)] shadow-sm transition-opacity hover:opacity-90"
+            aria-label="Scroll to join the waitlist form"
           >
             Join the waitlist
           </a>
@@ -214,8 +228,14 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-[var(--border)] px-4 py-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <a href="/" className="text-lg font-semibold tracking-tight text-[var(--primary)]">
-            PayFari
+          <a href="/" className="flex items-center">
+            <Image
+              src="/services/images/Logo.png"
+              alt="PayFari"
+              width={100}
+              height={28}
+              className="h-7 w-auto object-contain"
+            />
           </a>
           <p className="mt-2 text-sm text-[var(--gray-600)]">
             Multi-currency accounts for global spending & local payments

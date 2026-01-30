@@ -21,12 +21,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Most kit/form services accept form-urlencoded with email + name/first_name
+    // Kit (ConvertKit) expects email_address and fields[first_name]
     const formData = new URLSearchParams();
-    formData.append("email", email.trim());
+    formData.append("email_address", email.trim());
     if (name && typeof name === "string" && name.trim()) {
-      formData.append("name", name.trim());
-      formData.append("first_name", name.trim()); // some services expect first_name
+      formData.append("fields[first_name]", name.trim());
     }
 
     const res = await fetch(WAITLIST_FORM_URL, {
