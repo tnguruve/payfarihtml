@@ -97,23 +97,23 @@ export default function Home() {
             />
           </a>
           <span className="rounded-full bg-[var(--primary)] px-4 py-1.5 text-sm font-medium text-[var(--primary-foreground)]">
-            Launching in April 2026
+            Launching in June 2026
           </span>
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero – centered heading and copy per Figma */}
       <section className="relative overflow-hidden px-4 pt-12 pb-20 sm:px-6 sm:pt-16 sm:pb-28 lg:px-8">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-4xl text-center">
           <h1 className="text-3xl font-bold leading-tight tracking-tight text-[var(--foreground)] sm:text-4xl md:text-5xl lg:text-6xl">
-            One multi-currency account for Global Payments and local spending
+            One multi-currency account for global payments and local spending
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-[var(--gray-600)] sm:text-xl">
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-[var(--gray-600)] sm:text-xl">
             Open USD, EUR, or USDC accounts, spend with an international prepaid debit card, and get paid online using PayFari&apos;s billing tools.
           </p>
 
           {/* Waitlist form – styled to match PayFari */}
-          <div id="waitlist" className="mt-10 max-w-2xl scroll-mt-[5.5rem]">
+          <div id="waitlist" className="mx-auto mt-10 max-w-2xl scroll-mt-[5.5rem]">
             <Script src="https://f.convertkit.com/ckjs/ck.5.js" strategy="afterInteractive" />
             <div className="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--background-card)] shadow-sm">
               <form
@@ -145,9 +145,9 @@ export default function Home() {
                     <div className="formkit-field">
                       <input
                         className="formkit-input"
-                        aria-label="First and Last Name"
+                        aria-label="Full name"
                         name="fields[first_name]"
-                        placeholder="First and Last Name"
+                        placeholder="Full name"
                         type="text"
                       />
                     </div>
@@ -155,7 +155,7 @@ export default function Home() {
                       <input
                         className="formkit-input"
                         name="email_address"
-                        aria-label="Email Address"
+                        aria-label="Email address"
                         placeholder="Email address"
                         required
                         type="email"
@@ -167,7 +167,7 @@ export default function Home() {
                         <div />
                         <div />
                       </div>
-                      <span>Join Waitlist</span>
+                      <span>Join the waitlist</span>
                     </button>
                   </div>
                 </div>
@@ -179,13 +179,13 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[var(--background)]" />
       </section>
 
-      {/* Services */}
+      {/* Services – centered section heading per Figma */}
       <section className="relative border-t border-[var(--border)] bg-[var(--grey-100)] px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-2xl font-bold tracking-tight text-[var(--foreground)] sm:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-bold tracking-tight text-[var(--foreground)] sm:text-3xl md:text-4xl">
             Everything you need to get paid and spend globally
           </h2>
-          <p className="mt-3 text-lg text-[var(--gray-600)]">
+          <p className="mt-3 text-center text-lg text-[var(--gray-600)]">
             With PayFari every payment is local
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -203,14 +203,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="bg-[var(--primary)] px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
+      {/* Bottom CTA – orange banner with geometric pattern */}
+      <section className="relative overflow-hidden bg-[var(--primary)] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(0,0,0,0.15) 24px, rgba(0,0,0,0.15) 25px), repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(0,0,0,0.15) 24px, rgba(0,0,0,0.15) 25px)" }} />
+        <div className="relative mx-auto max-w-3xl text-center">
           <p className="text-sm font-medium text-[var(--primary-foreground)]/90">
             Get notified first when we launch
           </p>
           <h2 className="mt-2 text-2xl font-bold leading-tight text-[var(--primary-foreground)] sm:text-3xl md:text-4xl">
-            PayFari Is Bringing Back The Global In Payments For Everyone
+            PayFari is bringing back the global in payments for everyone
           </h2>
           <a
             href="#waitlist"
@@ -223,10 +224,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer – centered per Figma */}
       <footer className="border-t border-[var(--border)] px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <a href="/" className="flex items-center">
+        <div className="mx-auto max-w-6xl text-center">
+          <a href="/" className="inline-flex items-center">
             <Image
               src="/services/images/Logo.png"
               alt="PayFari"

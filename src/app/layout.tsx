@@ -4,7 +4,11 @@ import "./globals.css";
 const baseUrl = "https://waitlist.payfari.com";
 
 export const metadata: Metadata = {
-  title: "PayFari — One multi-currency account",
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: "PayFari — One multi-currency account",
+    template: "%s | PayFari",
+  },
   description: "Join the PayFari waitlist. One account, multiple currencies.",
   icons: {
     icon: "/icon.svg",
