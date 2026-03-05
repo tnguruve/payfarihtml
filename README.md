@@ -2,6 +2,23 @@
 
 Responsive Next.js landing page with Tailwind CSS: hero section (“One multi-currency account”) and email signup form.
 
+## Summary
+
+This repo is the **PayFari waitlist site** — the public signup page at [waitlist.payfari.com](https://waitlist.payfari.com). It explains PayFari (multi-currency accounts, global payments, local spending), shows the nine product areas, and collects name + email via a form that sends signups to Kit (ConvertKit). Used to build the launch email list before “Launching in June 2026.”
+
+## Tech stack
+
+| Component | Purpose |
+|-----------|--------|
+| **Next.js 16** | App Router, static/SSR, API routes |
+| **React 19** | UI components |
+| **Tailwind CSS 4** | Styling, layout, design tokens |
+| **TypeScript** | Typing |
+| **Kit (ConvertKit)** | Waitlist form embed, subscriber list |
+| **Vercel** | Hosting (waitlist.payfari.com) |
+
+- **Node.js 20+** required (see [.nvmrc](.nvmrc) if using nvm).
+
 ## Run locally
 
 ```bash
