@@ -175,7 +175,6 @@ body {
   flex: 1;
   letter-spacing: -0.2899px;
   line-height: normal;
-  box-sizing: border-box;
 }
 
 .btn-orange:hover {
