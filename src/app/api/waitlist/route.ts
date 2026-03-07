@@ -43,8 +43,9 @@ export async function POST(request: NextRequest) {
         }
 
         console.error("Kit API error:", res.status, data);
+        const errMessage = data.message || data.error || "Could not add you to the waitlist. Please try again.";
         return NextResponse.json(
-            { error: "Could not add you to the waitlist. Please try again." },
+            { error: errMessage },
             { status: 502 }
         );
     } catch (err) {

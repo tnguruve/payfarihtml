@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
   title: "PayFari Waitlist | One Multi-Currency Account for Global Payments",
   description:
     "Join the PayFari waitlist and access localized global payments with USD, EUR, and USDC accounts and international prepaid debit cards.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={manrope.className}>{children}</body>
+      <body className={manrope.className}>
+        {children}
+        <Toaster position="top-center" richColors />
+      </body>
     </html>
   );
 }

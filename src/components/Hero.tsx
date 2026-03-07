@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Hero() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-    const [errorMessage, setErrorMessage] = useState("");
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -26,12 +26,12 @@ export default function Hero() {
                 setEmail("");
             } else {
                 const data = await res.json();
-                setErrorMessage(data.error || "Something went wrong.");
-                setStatus("error");
+                toast.error(data.error || "Something went wrong.");
+                setStatus("idle");
             }
         } catch {
-            setErrorMessage("Failed to connect. Please try again.");
-            setStatus("error");
+            toast.error("Failed to connect. Please try again.");
+            setStatus("idle");
         }
     }
 
@@ -59,12 +59,12 @@ export default function Hero() {
                         </button>
                     </div>
                 ) : (
-                    <form
-                        className="waitlist-form"
-                        onSubmit={handleSubmit}
-                        aria-label="Join the waitlist"
-                    >
-                        <div className="flex flex-col gap-1 w-full flex-1">
+                    <>
+                        <form
+                            className="waitlist-form"
+                            onSubmit={handleSubmit}
+                            aria-label="Join the waitlist"
+                        >
                             <input
                                 id="waitlist-name"
                                 type="text"
@@ -74,8 +74,6 @@ export default function Hero() {
                                 onChange={(e) => setName(e.target.value)}
                                 disabled={status === "loading"}
                             />
-                        </div>
-                        <div className="flex flex-col gap-1 w-full flex-1">
                             <input
                                 id="waitlist-email"
                                 type="email"
@@ -86,19 +84,16 @@ export default function Hero() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 disabled={status === "loading"}
                             />
-                        </div>
-                        <button
-                            type="submit"
-                            className="btn-orange disabled:opacity-50"
-                            id="join-waitlist-btn"
-                            disabled={status === "loading"}
-                        >
-                            {status === "loading" ? "Joining..." : "Join the waitlist"}
-                        </button>
-                        {status === "error" && (
-                            <p className="text-red-500 text-sm mt-2 w-full text-center">{errorMessage}</p>
-                        )}
-                    </form>
+                            <button
+                                type="submit"
+                                className="btn-orange disabled:opacity-50"
+                                id="join-waitlist-btn"
+                                disabled={status === "loading"}
+                            >
+                                {status === "loading" ? "Joining..." : "Join the waitlist"}
+                            </button>
+                        </form>
+                    </>
                 )}
             </div>
         </section>
