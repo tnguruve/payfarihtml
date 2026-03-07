@@ -116,43 +116,49 @@ body {
 
 .waitlist-form {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   background: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 10px;
-  gap: 8px;
+  border: 1px solid #f1f1f1;
+  border-radius: 16px;
+  padding: 16px;
+  gap: 12px;
   width: 100%;
-  max-width: 800px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   position: relative;
   z-index: 1;
   overflow: hidden;
 }
 
 .waitlist-form input {
-  background: #f3f3f5;
-  border: 0.619px solid transparent;
+  background: #eef3fb;
+  border: 1px solid transparent;
   border-radius: 10px;
   outline: none;
   padding: 0 16px;
   font-size: 14px;
-  color: #717182;
+  color: #1a1a1a;
   letter-spacing: -0.1395px;
   font-family: inherit;
-  width: 291px;
+  width: 100%;
   height: 48px;
   flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.waitlist-form input:focus {
+  border-color: #d0def5;
+  background: #e6edf9;
 }
 
 .waitlist-form input::placeholder {
-  color: #717182;
+  color: #6b7280;
 }
 
 .btn-orange {
   background: #f97616;
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   padding: 0 24px;
   height: 48px;
@@ -163,15 +169,18 @@ body {
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, transform 0.1s ease;
   font-family: inherit;
-  flex: 1;
-  letter-spacing: -0.2899px;
+  width: 100%;
+  letter-spacing: -0.2px;
   line-height: normal;
 }
 
 .btn-orange:hover {
   background: #ea6c0a;
+}
+.btn-orange:active {
+  transform: scale(0.98);
 }
 
 /* FEATURES SECTION */
