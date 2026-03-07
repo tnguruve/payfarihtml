@@ -1,33 +1,17 @@
 import type { Metadata } from "next";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 
-const baseUrl = "https://waitlist.payfari.com";
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-manrope",
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
-  title: {
-    default: "PayFari — One multi-currency account",
-    template: "%s | PayFari",
-  },
-  description: "Join the PayFari waitlist. One account, multiple currencies.",
-  icons: {
-    icon: "/icon.svg",
-    apple: "/icon.svg",
-  },
-  openGraph: {
-    title: "PayFari — One multi-currency account",
-    description: "Join the PayFari waitlist. One account, multiple currencies.",
-    url: baseUrl,
-    siteName: "PayFari",
-    images: [{ url: `${baseUrl}/opengraph-image`, width: 1200, height: 630, alt: "PayFari" }],
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "PayFari — One multi-currency account",
-    description: "Join the PayFari waitlist. One account, multiple currencies.",
-    images: [`${baseUrl}/opengraph-image`],
-  },
+  title: "PayFari Waitlist | One Multi-Currency Account for Global Payments",
+  description:
+    "Join the PayFari waitlist and access localized global payments with USD, EUR, and USDC accounts and international prepaid debit cards.",
 };
 
 export default function RootLayout({
@@ -37,9 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        {children}
-      </body>
+      <body className={manrope.className}>{children}</body>
     </html>
   );
 }
