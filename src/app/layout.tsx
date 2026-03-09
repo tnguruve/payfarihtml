@@ -20,15 +20,24 @@ export const metadata: Metadata = {
   openGraph: {
     title: "PayFari Waitlist | One Multi-Currency Account for Global Payments",
     description: "Join the PayFari waitlist and access localized global payments with USD, EUR, and USDC accounts and international prepaid debit cards.",
-    url: "https://payfari.com",
+    url: "https://waitlist.payfari.com",
     siteName: "PayFari",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "PayFari - One Multi-Currency Account for Global Payments",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "PayFari Waitlist | One Multi-Currency Account for Global Payments",
     description: "Join the PayFari waitlist and access localized global payments with USD, EUR, and USDC accounts and international prepaid debit cards.",
+    images: ["/og-image.png"],
   },
   icons: {
     icon: "/icon.svg",
