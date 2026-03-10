@@ -3,7 +3,8 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
 const KIT_API_KEY = process.env.WAITLIST_KIT_API_KEY;
-const KIT_FORM_ID = process.env.WAITLIST_KIT_FORM_ID || "8974776";
+// Kit Form ID for waitlist submissions - must be set in Environment Variables
+const KIT_FORM_ID = process.env.WAITLIST_KIT_FORM_ID;
 
 // Lazily initialize the rate limiter to prevent build-time crashes if ENV vars are missing in CI
 let ratelimit: Ratelimit | null = null;
@@ -19,17 +20,17 @@ export async function POST(request: NextRequest) {
                 prefix: "@upstash/ratelimit",
             });
         }
-        
+
         // x-real-ip is set by Vercel and is more reliable than x-forwarded-for
-        const ip = request.headers.get("x-real-ip") ?? 
-                   request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? 
-                   "127.0.0.1";
+        const ip = request.headers.get("x-real-ip") ??
+            request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+            "127.0.0.1";
         const { success, limit, reset, remaining } = await ratelimit.limit(ip);
 
         if (!success) {
             return NextResponse.json(
                 { error: "Too many requests. Please try again in 24 hours." },
-                { 
+                {
                     status: 429,
                     headers: {
                         "X-RateLimit-Limit": limit.toString(),
@@ -42,7 +43,7 @@ export async function POST(request: NextRequest) {
     } catch (error) {
         // High-severity log for observability/alerting
         console.error("[CRITICAL] Rate limiter failed or bypassed (Redis unavailable or missing env vars):", error);
-        
+
         // Fail closed for security - reject requests when rate limiting is unavailable
         return NextResponse.json(
             { error: "Service temporarily unavailable. Please try again later." },
@@ -50,9 +51,10 @@ export async function POST(request: NextRequest) {
         );
     }
 
-    if (!KIT_API_KEY) {
+    if (!KIT_API_KEY || !KIT_FORM_ID) {
+        console.error("[CRITICAL] Waitlist API misconfigured: Missing environment variables.");
         return NextResponse.json(
-            { error: "Waitlist not configured. Add WAITLIST_KIT_API_KEY in Vercel Environment Variables." },
+            { error: "Waitlist service temporarily unavailable. Please try again later." },
             { status: 500 }
         );
     }
@@ -81,10 +83,9 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Kit API v3: Subscribe to form in one step
-        // This matches the endpoint provided: https://api.convertkit.com/v3/forms/[FORM_ID]/subscribe
+        // Endpoint: https://api.kit.com/v3/forms/[FORM_ID]/subscribe
         const kitUrl = `https://api.kit.com/v3/forms/${KIT_FORM_ID}/subscribe`;
-        
+
         console.log("Subscribing to Kit form (v3)...");
         const kitRes = await fetch(kitUrl, {
             method: "POST",
