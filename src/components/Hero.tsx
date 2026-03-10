@@ -70,6 +70,8 @@ export default function Hero() {
                                 type="text"
                                 placeholder="Full name"
                                 aria-label="Full name"
+                                required
+                                minLength={2}
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 disabled={status === "loading"}

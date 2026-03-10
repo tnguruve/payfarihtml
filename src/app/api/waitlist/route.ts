@@ -14,12 +14,23 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
         const { name, email } = body;
+        const trimmedEmail = email?.trim() || "";
+        const trimmedName = name?.trim() || "";
 
-        console.log("Waitlist submission attempt:", { name, email, formId: KIT_FORM_ID });
+        console.log("Waitlist submission attempt:", { name: trimmedName, email: trimmedEmail, formId: KIT_FORM_ID });
 
-        if (!email || typeof email !== "string" || !email.trim()) {
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
             return NextResponse.json(
-                { error: "Email is required" },
+                { error: "Please provide a valid email address" },
+                { status: 400 }
+            );
+        }
+
+        if (!trimmedName || trimmedName.length < 2) {
+            return NextResponse.json(
+                { error: "Please provide your full name" },
                 { status: 400 }
             );
         }
@@ -34,8 +45,8 @@ export async function POST(request: NextRequest) {
                 "X-Kit-Api-Key": KIT_API_KEY,
             },
             body: JSON.stringify({
-                email_address: email.trim(),
-                first_name: name && typeof name === "string" && name.trim() ? name.trim() : undefined,
+                email_address: trimmedEmail,
+                first_name: trimmedName,
             }),
         });
 
