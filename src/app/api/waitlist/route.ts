@@ -5,31 +5,41 @@ import { Redis } from "@upstash/redis";
 const KIT_API_KEY = process.env.WAITLIST_KIT_API_KEY;
 const KIT_FORM_ID = process.env.WAITLIST_KIT_FORM_ID || "8974776";
 
-// Create a new ratelimiter, that allows 3 requests per 24 hours
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(3, "24 h"),
-  analytics: true,
-  prefix: "@upstash/ratelimit",
-});
+// Lazily initialize the rate limiter to prevent build-time crashes if ENV vars are missing in CI
+let ratelimit: Ratelimit | null = null;
 
 export async function POST(request: NextRequest) {
     // 1. Rate Limiting Guard
-    const ip = request.headers.get("x-forwarded-for") ?? "127.0.0.1";
-    const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+    try {
+        if (!ratelimit) {
+            ratelimit = new Ratelimit({
+                redis: Redis.fromEnv(),
+                limiter: Ratelimit.slidingWindow(3, "24 h"),
+                analytics: true,
+                prefix: "@upstash/ratelimit",
+            });
+        }
+        
+        const ip = request.headers.get("x-forwarded-for") ?? "127.0.0.1";
+        const { success, limit, reset, remaining } = await ratelimit.limit(ip);
 
-    if (!success) {
-        return NextResponse.json(
-            { error: "Too many requests. Please try again in 24 hours." },
-            { 
-                status: 429,
-                headers: {
-                    "X-RateLimit-Limit": limit.toString(),
-                    "X-RateLimit-Remaining": remaining.toString(),
-                    "X-RateLimit-Reset": reset.toString(),
+        if (!success) {
+            return NextResponse.json(
+                { error: "Too many requests. Please try again in 24 hours." },
+                { 
+                    status: 429,
+                    headers: {
+                        "X-RateLimit-Limit": limit.toString(),
+                        "X-RateLimit-Remaining": remaining.toString(),
+                        "X-RateLimit-Reset": reset.toString(),
+                    }
                 }
-            }
-        );
+            );
+        }
+    } catch (error) {
+        console.warn("Rate limit check bypassed or failed (likely missing env vars):", error);
+        // If Redis throws because of missing env vars, optionally fail open or close.
+        // Failing open allows signups if the Upstash config is missing.
     }
 
     if (!KIT_API_KEY) {
