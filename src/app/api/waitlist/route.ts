@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
 
         console.error("Kit API v3 error:", { status: kitRes.status, kitData });
         return NextResponse.json(
-            { error: kitData.message || "Could not add you to the waitlist. Please check your credentials." },
+            { error: kitData.message || "Could not add you to the waitlist. Please try again later." },
             { status: 502 }
         );
     } catch (err) {
