@@ -22,18 +22,21 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Kit API v4: add subscriber to form by email – this actually creates the subscriber
-        const res = await fetch(`https://api.kit.com/v4/forms/${KIT_FORM_ID}/subscribers`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-Kit-Api-Key": KIT_API_KEY,
-            },
-            body: JSON.stringify({
-                email_address: email.trim(),
-                first_name: name && typeof name === "string" && name.trim() ? name.trim() : undefined,
-            }),
-        });
+        // ConvertKit v3: subscribe to form
+        const res = await fetch(
+            `https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                body: JSON.stringify({
+                    api_key: KIT_API_KEY,
+                    email: email.trim(),
+                    first_name: name && typeof name === "string" && name.trim() ? name.trim() : undefined,
+                }),
+            }
+        );
 
         const data = await res.json().catch(() => ({}));
 
@@ -42,7 +45,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ success: true });
         }
 
-        console.error("Kit API error:", res.status, data);
+        console.error("ConvertKit subscribe error:", res.status, data);
         const errMessage = data.message || data.error || "Could not add you to the waitlist. Please try again.";
         return NextResponse.json(
             { error: errMessage },
