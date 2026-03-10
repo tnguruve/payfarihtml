@@ -1,4 +1,4 @@
-# PayFari Landing Page
+# PayFari Waiting List
 
 Modern, secure, and performant landing page for PayFari.
 
