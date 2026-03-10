@@ -40,9 +40,14 @@ export async function POST(request: NextRequest) {
             );
         }
     } catch (error) {
-        console.warn("Rate limit check bypassed or failed (likely missing env vars):", error);
-        // If Redis throws because of missing env vars, optionally fail open or close.
-        // Failing open allows signups if the Upstash config is missing.
+        // High-severity log for observability/alerting
+        console.error("[CRITICAL] Rate limiter failed or bypassed (Redis unavailable or missing env vars):", error);
+        
+        // Fail closed for security - reject requests when rate limiting is unavailable
+        return NextResponse.json(
+            { error: "Service temporarily unavailable. Please try again later." },
+            { status: 503 }
+        );
     }
 
     if (!KIT_API_KEY) {
