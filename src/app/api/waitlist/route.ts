@@ -81,55 +81,33 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Kit API v4: Step 1 - Create or update the subscriber
-        const subscriberUrl = "https://api.kit.com/v4/subscribers";
-        console.log("Creating/Updating subscriber in Kit...");
-        const subRes = await fetch(subscriberUrl, {
+        // Kit API v3: Subscribe to form in one step
+        // This matches the endpoint provided: https://api.convertkit.com/v3/forms/[FORM_ID]/subscribe
+        const kitUrl = `https://api.kit.com/v3/forms/${KIT_FORM_ID}/subscribe`;
+        
+        console.log("Subscribing to Kit form (v3)...");
+        const kitRes = await fetch(kitUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-Kit-Api-Key": KIT_API_KEY,
             },
             body: JSON.stringify({
-                email_address: trimmedEmail,
+                api_key: KIT_API_KEY, // Kit v3 usually takes the public API key in the body
+                email: trimmedEmail,
                 first_name: trimmedName,
             }),
         });
 
-        const subData = await subRes.json().catch(() => ({}));
-        
-        if (!subRes.ok || !subData.subscriber?.id) {
-            console.error("Kit Subscriber API error:", { status: subRes.status, subData });
-            return NextResponse.json(
-                { error: subData.message || "Failed to create subscriber in Kit" },
-                { status: subRes.status }
-            );
-        }
+        const kitData = await kitRes.json().catch(() => ({}));
 
-        const subscriberId = subData.subscriber.id;
-        console.log("Subscriber ID obtained:", subscriberId);
-
-        // Kit API v4: Step 2 - Add subscriber to form
-        const formUrl = `https://api.kit.com/v4/forms/${KIT_FORM_ID}/subscribers/${subscriberId}`;
-        console.log("Adding subscriber to form:", formUrl);
-
-        const formRes = await fetch(formUrl, {
-            method: "POST",
-            headers: {
-                "X-Kit-Api-Key": KIT_API_KEY,
-            },
-        });
-
-        const formData = await formRes.json().catch(() => ({}));
-
-        if (formRes.ok) {
+        if (kitRes.ok) {
             console.log("Waitlist submission successful");
             return NextResponse.json({ success: true });
         }
 
-        console.error("Kit Form API error:", { status: formRes.status, formData });
+        console.error("Kit API v3 error:", { status: kitRes.status, kitData });
         return NextResponse.json(
-            { error: formData.message || "Could not add you to the waitlist form." },
+            { error: kitData.message || "Could not add you to the waitlist. Please check your credentials." },
             { status: 502 }
         );
     } catch (err) {
