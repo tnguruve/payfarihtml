@@ -1,9 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 
 const KIT_API_KEY = process.env.WAITLIST_KIT_API_KEY;
 const KIT_FORM_ID = process.env.WAITLIST_KIT_FORM_ID || "8974776";
 
+// Create a new ratelimiter, that allows 3 requests per 24 hours
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(3, "24 h"),
+  analytics: true,
+  prefix: "@upstash/ratelimit",
+});
+
 export async function POST(request: NextRequest) {
+    // 1. Rate Limiting Guard
+    const ip = request.headers.get("x-forwarded-for") ?? "127.0.0.1";
+    const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+
+    if (!success) {
+        return NextResponse.json(
+            { error: "Too many requests. Please try again in 24 hours." },
+            { 
+                status: 429,
+                headers: {
+                    "X-RateLimit-Limit": limit.toString(),
+                    "X-RateLimit-Remaining": remaining.toString(),
+                    "X-RateLimit-Reset": reset.toString(),
+                }
+            }
+        );
+    }
+
     if (!KIT_API_KEY) {
         return NextResponse.json(
             { error: "Waitlist not configured. Add WAITLIST_KIT_API_KEY in Vercel Environment Variables." },
