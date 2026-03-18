@@ -48,18 +48,20 @@ export default function Hero() {
                 </div>
 
                 {status === "success" ? (
-                    <div className="w-full flex justify-center px-4">
-  <div className="bg-green-100 text-green-800 p-6 rounded-2xl text-center w-full max-w-md animate-in fade-in zoom-in duration-300">
-    <h3 className="text-xl font-bold mb-2">You&apos;re on the list! 🎉</h3>
-    <p>We&apos;ll notify you as soon as we launch.</p>
-    <button 
-      onClick={() => setStatus("idle")} 
-      className="text-sm underline mt-4 opacity-70 hover:opacity-100"
-    >
-      Add another email
-    </button>
-  </div>
-</div>
+                    <div className="flex w-full justify-center px-4">
+                        <div className="animate-in fade-in zoom-in flex w-full max-w-md flex-col items-center rounded-2xl bg-green-100 px-5 py-6 text-center text-green-800 duration-300 sm:px-6">
+                            <h3 className="mb-2 text-xl font-bold">You&apos;re on the list! 🎉</h3>
+                            <p className="mx-auto max-w-[26ch] text-sm leading-relaxed sm:text-base">
+                                We&apos;ll notify you as soon as we launch.
+                            </p>
+                            <button
+                                onClick={() => setStatus("idle")}
+                                className="mt-4 text-sm underline opacity-70 transition-opacity hover:opacity-100"
+                            >
+                                Add another email
+                            </button>
+                        </div>
+                    </div>
                 ) : (
                     <>
                         <form
